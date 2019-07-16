@@ -1,0 +1,183 @@
+---
+title: "Learning-R"
+author: "Anil Akyildirim"
+date: "7/16/2019"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Purpose
+
+The purpose of this document is to review the hands on lab quiz and practice R exercices in Week-1. 
+
+## Questions
+
+Question 1: Create a vector that contains 20 numbers. 
+
+```{r}
+
+number_vector <- c (1,2,3,4,5,1,2,3,4,5,6,7,8,9,10,11,12,13,13,12)
+length(number_vector)
+number_vector
+```
+
+Question 2: Use R to convert vector from question 1 into a character vector.
+
+
+```{r}
+number_vector <- as.character(number_vector)
+typeof(number_vector)
+
+```
+
+Question 3: Use R to convert vector from question 1 into a vector of factors:
+```{r}
+
+number_vector <- as.factor(number_vector)
+typeof(number_vector)
+class(number_vector)
+```
+Question 4: Use R to show how many levels the vector in the previous has.
+
+```{r}
+nlevels(number_vector)
+```
+Question 5:  Use R to create a vector that takes vector from question 1 and performs on it the formula 3x2 -4x+1
+
+Please note: In this case i realized i already converted the vector in question 1 into a factor type so i will create another numeric vector to calculate the equation.
+
+```{r}
+new_vector <- c(1:20)
+new_vector
+
+new_vector_2 <- 3*new_vector^2-4*new_vector+1
+new_vector_2
+```
+Question 6: Create a named list that has several elements that are each able to be referenced by name:
+
+```{r}
+
+new_list <- list(title=c('Toy Story', 'Star Wars', 'Guardians of the Galaxy', 'Spiderman'), ratings=c(3,4,3,2))
+new_list
+```
+
+Question 7: Create a dataframe with 4 columns - one each character, 3 factor levels, numeric and date. with 10 rows.
+
+```{r}
+
+title <- as.character(c('Toy Story', 'Star Wars', 'Guardians of the Galaxy', 'Spiderman', 'Incredibles 2',
+           'Venom', 'Black Panther', 'Avengers', 'Iron Man', 'Avatar'))
+release <- as.Date(c('2008-1-1', '2019-1-1', '2018-1-1', '2014-1-1', '1982-1-1',
+                   '2007-1-1', '2015-1-1', '2016-1-1', '2019-1-1', '2017-1-1'))
+genre <- c('comedy', 'adventure', 'action', 'comedy', 'adventure',
+           'action', 'comedy', 'adventure', 'action', 'comedy')
+ratings <- as.numeric(c(1,2,3,4,5,6,7,8,9,10))
+
+df <- data.frame(title, release, genre, ratings)
+head(df)
+str(df)
+
+# i see title has 10 factors. i need to make that a character.
+
+df$title <- as.character(df$title)
+str(df)
+```
+Question 8: Illustrate how to add a row with a value for the factor column that isnt already in the list. 
+
+```{r}
+new_movie <- data.frame(title='Batman', release='1996-1-1', genre='drama', ratings=10)
+new_movie
+
+new_movie$title <- as.character(new_movie$title)
+new_movie$release <- as.Date(new_movie$release)
+
+df <- rbind(df, new_movie)
+df
+```
+Question 9: Show the code that would read in a CSV file called temperatures.csv 
+
+Please note; there will not be an output of the CSV file as i do not have the csv in my local. 
+
+``` {r}
+df_new <- read.csv('temperatures', header=TRUE, sep=',')
+df_new
+
+
+```
+Question 10: Use a loop to calculate the final balance, rounded to the nearest cent, in an account that earns 3.24% interest compounded monthly after six years if the original balance is $1500.
+*Compount interes every month. 12 months in a year. period per year is 12.
+*principal is $1500
+*we are trying to calculate the final balance after 6 years.
+*interest rate is 3.25% which is 0.0325
+
+```{r}
+
+principal <- 1500
+years <- 6
+interest_rate < 0.0324
+period_per_year <- 12 
+
+for(period in 1:(period_per_year*years)){
+  principal <- principal + (principal * interest_rate/period_per_year)
+}
+
+print(principal)
+
+```
+Question 11:Create a numeric vector length 20 and then write a code to calculate the sum of every third element of the vector you have created.
+To get the every 3rd element i can use [... %%3]
+
+```{r}
+
+num_vector <- c(1:20)
+sum(num_vector[num_vector %% 3])
+
+
+
+```
+
+Question 12: Use loop to calculate (could not add special characters) for the value x=2 
+Basically the question: get sum of x^1 + x ^2 + x^3 .... up to x^10 for value x being 2
+
+```{r}
+
+x <-2 
+sum <- 0
+
+for (i in 1:10){
+  sum <- sum + x ^ i
+}
+print(sum)
+
+
+```
+
+Question 13: Use a while loop to accomplish the same task as in question 12.
+
+```{r}
+
+x <-2
+sum <-2
+
+while(i <=10){
+  sum <- sum + x ^ i
+  i <- i+1
+}
+print(sum)
+
+```
+
+Question 14: Solve the problem freom the two previous exercises without using a loop. 
+```{r}
+x <- 2
+sum(x^(1:10))
+```
+
+
+
+
